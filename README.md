@@ -22,7 +22,7 @@ dependencies:
 | `borderWidth` | Set the border thickness of `OutlineSearchBar`. <br> Default value is `1.0`. |
 | `borderRadius` | Set the border radius of `OutlineSearchBar`. <br> Default value is `BorderRadius.all(Radius.circular(4.0))`. |
 | `margin` | Set the margin value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.only()`. |
-| `padding` | Set the padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.only(left: 10.0, right: 4.0)`. |
+| `textPadding` | Set the text padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.only(left: 10.0)`. |
 | `elevation` | Set the elevation of `OutlineSearchBar`. <br> Default value is `0.0`. |
 | `initText` | Set the keyword to be initially entered. If initial text is set in `textEditingController`, this value is ignored. |
 | `hintText` | Set the text to be displayed when the keyword is empty. |
