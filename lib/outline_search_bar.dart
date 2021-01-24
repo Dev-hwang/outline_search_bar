@@ -243,8 +243,15 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         hintStyle: widget.hintStyle,
         counterText: '',
         contentPadding: widget.textPadding,
-        isDense: true,
-        removeBorder: true
+        // isDense: true,
+        // removeBorder: true,
+        simpleBorder: true,
+        borderWidth: 0.0,
+        focusedBorderWidth: 0.0,
+        borderColor: Colors.transparent,
+        errorBorderColor: Colors.transparent,
+        focusedBorderColor: Colors.transparent,
+        focusedErrorBorderColor: Colors.transparent
       ),
       onChanged: (String value) {
         if (value.isEmpty && _isShowingClearButton) {
