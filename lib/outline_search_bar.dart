@@ -280,6 +280,10 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
       width: kActionButtonDefaultSize,
       height: kActionButtonDefaultSize,
       child: InkWell(
+        splashColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        highlightColor: Colors.transparent,
         child: Container(
           margin: const EdgeInsets.all(6.0),
           decoration: BoxDecoration(

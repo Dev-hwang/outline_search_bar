@@ -1,3 +1,8 @@
+## 1.0.2
+
+* Rename constant.
+* Remove splash color from the clear button.
+
 ## 1.0.1
 
 * Replace `padding` with `textPadding`.
