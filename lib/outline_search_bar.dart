@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:simple_text_field/simple_text_field.dart';
 
 /// Search Bar default height.
-const double SearchBarDefaultHeight = 48.0;
+const double kSearchBarDefaultHeight = 48.0;
 
 /// Action Button(Clear, Search) default size.
-const double ActionButtonDefaultSize = 36.0;
+const double kActionButtonDefaultSize = 36.0;
 
 /// A widget that implements an outlined search bar.
 class OutlineSearchBar extends StatefulWidget {
@@ -198,7 +198,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         color: Colors.transparent,
         child: Container(
           width: double.infinity,
-          height: SearchBarDefaultHeight,
+          height: kSearchBarDefaultHeight,
           padding: const EdgeInsets.only(right: 5.0),
           decoration: BoxDecoration(
             color: widget.backgroundColor,
@@ -277,8 +277,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         size: 18.0, color: widget.clearButtonIconColor);
 
     return SizedBox(
-      width: ActionButtonDefaultSize,
-      height: ActionButtonDefaultSize,
+      width: kActionButtonDefaultSize,
+      height: kActionButtonDefaultSize,
       child: InkWell(
         child: Container(
           margin: const EdgeInsets.all(6.0),
@@ -305,8 +305,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         size: 30.0, color: widget.searchButtonIconColor ?? _themeColor);
 
     return SizedBox(
-      width: ActionButtonDefaultSize,
-      height: ActionButtonDefaultSize,
+      width: kActionButtonDefaultSize,
+      height: kActionButtonDefaultSize,
       child: Material(
         color: Colors.transparent,
         child: InkWell(
