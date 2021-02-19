@@ -159,16 +159,19 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
 
   Color _themeColor;
 
+  void _textEditingControllerListener() {
+    if (_textEditingController.text.isEmpty && _isShowingClearButton) {
+      _isShowingClearButton = false;
+      _animationController.reverse();
+    } else if (_textEditingController.text.isNotEmpty && !_isShowingClearButton) {
+      _isShowingClearButton = true;
+      _animationController.forward();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    _textEditingController = widget.textEditingController;
-    if (_textEditingController == null)
-      _textEditingController = TextEditingController();
-
-    if (_textEditingController.text.isEmpty && widget.initText != null)
-      _textEditingController.text = widget.initText;
-
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 250),
@@ -181,6 +184,21 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
     );
 
     _animationController.reverse();
+
+    _textEditingController = widget.textEditingController;
+    if (_textEditingController == null)
+      _textEditingController = TextEditingController();
+    _textEditingController.addListener(_textEditingControllerListener);
+
+    if (_textEditingController.text.isEmpty
+        && (widget.initText != null && widget.initText.isNotEmpty))
+      _textEditingController.text = widget.initText;
+  }
+
+  @override
+  void dispose() {
+    _textEditingController.removeListener(_textEditingControllerListener);
+    super.dispose();
   }
 
   @override
@@ -254,14 +272,6 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         focusedErrorBorderColor: Colors.transparent
       ),
       onChanged: (String value) {
-        if (value.isEmpty && _isShowingClearButton) {
-          _isShowingClearButton = false;
-          _animationController.reverse();
-        } else if (value.isNotEmpty && !_isShowingClearButton) {
-          _isShowingClearButton = true;
-          _animationController.forward();
-        }
-
         if (widget.onKeywordChanged != null)
           widget.onKeywordChanged(value);
       },
@@ -294,9 +304,6 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         ),
         onTap: () {
           Future.microtask(_textEditingController.clear);
-          _isShowingClearButton = false;
-          _animationController.reverse();
-
           if (widget.onKeywordChanged != null)
             widget.onKeywordChanged('');
         }
