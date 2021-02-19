@@ -1,3 +1,8 @@
+## 1.0.3
+
+* Change the type of a constant access modifier.
+* Fix problem where the clear button animation did not work for external input.
+
 ## 1.0.2
 
 * Rename constant.
