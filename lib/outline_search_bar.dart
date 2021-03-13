@@ -12,15 +12,15 @@ const double _kActionButtonDefaultSize = 36.0;
 /// A widget that implements an outlined search bar.
 class OutlineSearchBar extends StatefulWidget {
   /// The keyword of [OutlineSearchBar] can be controlled with a [TextEditingController].
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
 
   /// Set the color of [OutlineSearchBar].
   /// Default value is Color(0xFFFEFEFE)
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   /// Set the border color of [OutlineSearchBar].
   /// If value is null and theme brightness is light, use primaryColor, if dark, use accentColor.
-  final Color borderColor;
+  final Color? borderColor;
 
   /// Set the border thickness of [OutlineSearchBar].
   /// Default value is 1.0
@@ -44,32 +44,32 @@ class OutlineSearchBar extends StatefulWidget {
 
   /// Set the keyword to be initially entered.
   /// If initial text is set in [textEditingController], this value is ignored.
-  final String initText;
+  final String? initText;
 
   /// Set the text to be displayed when the keyword is empty.
-  final String hintText;
+  final String? hintText;
 
   /// Set the input text style.
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
 
   /// Set the style of [hintText].
-  final TextStyle hintStyle;
+  final TextStyle? hintStyle;
 
   /// Set the maximum length of text to be entered.
-  final int maxLength;
+  final int? maxLength;
 
   /// Set the color of cursor.
-  final Color cursorColor;
+  final Color? cursorColor;
 
   /// Set the width of cursor.
   /// Default value is 2.0
   final double cursorWidth;
 
   /// Set the height of cursor.
-  final double cursorHeight;
+  final double? cursorHeight;
 
   /// Set the radius of cursor.
-  final Radius cursorRadius;
+  final Radius? cursorRadius;
 
   /// Set the background color of the clear button.
   /// Default value is Color(0xFFDDDDDD)
@@ -80,11 +80,11 @@ class OutlineSearchBar extends StatefulWidget {
   final Color clearButtonIconColor;
 
   /// Set the splash color that appears when the search button is pressed.
-  final Color searchButtonSplashColor;
+  final Color? searchButtonSplashColor;
 
   /// Set the icon color inside the search button.
   /// If value is null and theme brightness is light, use primaryColor, if dark, use accentColor.
-  final Color searchButtonIconColor;
+  final Color? searchButtonIconColor;
 
   /// Whether to use autoCorrect option.
   /// Default value is false
@@ -103,13 +103,13 @@ class OutlineSearchBar extends StatefulWidget {
   final bool ignoreSpecialChar;
 
   /// Called whenever a keyword is entered.
-  final ValueChanged<String> onKeywordChanged;
+  final ValueChanged<String>? onKeywordChanged;
 
   /// When you press the search button, it is called with the entered keyword.
-  final ValueChanged<String> onSearchButtonPressed;
+  final ValueChanged<String>? onSearchButtonPressed;
 
   OutlineSearchBar({
-    Key key,
+    Key? key,
     this.textEditingController,
     this.backgroundColor = const Color(0xFFFEFEFE),
     this.borderColor,
@@ -137,12 +137,9 @@ class OutlineSearchBar extends StatefulWidget {
     this.ignoreSpecialChar = false,
     this.onKeywordChanged,
     this.onSearchButtonPressed
-  })  : assert(borderWidth != null && elevation >= 0.0),
-        assert(elevation != null && elevation >= 0.0),
-        assert(cursorWidth != null && cursorWidth >= 0.0),
-        assert(hideSearchButton != null),
-        assert(ignoreWhiteSpace != null),
-        assert(ignoreSpecialChar != null),
+  })  : assert(borderWidth >= 0.0),
+        assert(elevation >= 0.0),
+        assert(cursorWidth >= 0.0),
         super(key: key);
 
   @override
@@ -151,13 +148,12 @@ class OutlineSearchBar extends StatefulWidget {
 
 /// Class to control the state of [OutlineSearchBar].
 class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProviderStateMixin {
-  TextEditingController _textEditingController;
-
-  AnimationController _animationController;
-  Animation<double> _curvedAnimation;
+  late TextEditingController _textEditingController;
+  late AnimationController _animationController;
+  late Animation<double> _curvedAnimation;
   bool _isShowingClearButton = false;
 
-  Color _themeColor;
+  late Color _themeColor;
 
   void _textEditingControllerListener() {
     if (_textEditingController.text.isEmpty && _isShowingClearButton) {
@@ -185,14 +181,13 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
 
     _animationController.reverse();
 
-    _textEditingController = widget.textEditingController;
-    if (_textEditingController == null)
-      _textEditingController = TextEditingController();
+    _textEditingController = widget.textEditingController
+        ?? TextEditingController();
     _textEditingController.addListener(_textEditingControllerListener);
 
     if (_textEditingController.text.isEmpty
-        && (widget.initText != null && widget.initText.isNotEmpty))
-      _textEditingController.text = widget.initText;
+        && (widget.initText != null && widget.initText!.isNotEmpty))
+      _textEditingController.text = widget.initText!;
   }
 
   @override
@@ -273,11 +268,11 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
       ),
       onChanged: (String value) {
         if (widget.onKeywordChanged != null)
-          widget.onKeywordChanged(value);
+          widget.onKeywordChanged!(value);
       },
       onSubmitted: (String value) {
         if (widget.onSearchButtonPressed != null)
-          widget.onSearchButtonPressed(value);
+          widget.onSearchButtonPressed!(value);
       },
     );
   }
@@ -298,14 +293,14 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
           margin: const EdgeInsets.all(6.0),
           decoration: BoxDecoration(
             color: widget.clearButtonColor,
-            borderRadius: BorderRadius.circular(clearIcon.size)
+            borderRadius: BorderRadius.circular(clearIcon.size!)
           ),
           child: clearIcon
         ),
         onTap: () {
           Future.microtask(_textEditingController.clear);
           if (widget.onKeywordChanged != null)
-            widget.onKeywordChanged('');
+            widget.onKeywordChanged!('');
         }
       ),
     );
@@ -322,12 +317,12 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         color: Colors.transparent,
         child: InkWell(
           splashColor: widget.searchButtonSplashColor,
-          borderRadius: BorderRadius.circular(searchIcon.size),
+          borderRadius: BorderRadius.circular(searchIcon.size!),
           child: searchIcon,
           onTap: () {
             if (widget.onSearchButtonPressed != null) {
               FocusScope.of(context).requestFocus(FocusNode());
-              widget.onSearchButtonPressed(_textEditingController.text);
+              widget.onSearchButtonPressed!(_textEditingController.text);
             }
           }
         ),
