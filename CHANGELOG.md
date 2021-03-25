@@ -1,3 +1,9 @@
+## 2.0.3
+
+* Add `keyboardType` option to set keyboard type.
+* Add `textInputAction` option to set keyboard action.
+* Add `icon` option to set the icon of the search bar.
+
 ## 2.0.0
 
 * Migrate null safety.
