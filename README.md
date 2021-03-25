@@ -17,6 +17,9 @@ dependencies:
 | Parameter | Description |
 |---|---|
 | `textEditingController` | The keyword of `OutlineSearchBar` can be controlled with a `TextEditingController`. |
+| `keyboardType` | Set keyboard type. <br> Default value is `TextInputType.text`. |
+| `textInputAction` | Set keyboard action. <br> Default value is `TextInputAction.search`. |
+| `icon` | Set the icon of `OutlineSearchBar`. |
 | `backgroundColor` | Set the color of `OutlineSearchBar`. <br> Default value is `Color(0xFFFEFEFE)`. |
 | `borderColor` | Set the border color of `OutlineSearchBar`. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
 | `borderWidth` | Set the border thickness of `OutlineSearchBar`. <br> Default value is `1.0`. |

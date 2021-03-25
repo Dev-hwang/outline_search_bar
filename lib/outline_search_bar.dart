@@ -14,6 +14,17 @@ class OutlineSearchBar extends StatefulWidget {
   /// The keyword of [OutlineSearchBar] can be controlled with a [TextEditingController].
   final TextEditingController? textEditingController;
 
+  /// Set keyboard type.
+  /// Default value is TextInputType.text
+  final TextInputType keyboardType;
+
+  /// Set keyboard action.
+  /// Default value is TextInputAction.search
+  final TextInputAction textInputAction;
+
+  /// Set the icon of [OutlineSearchBar].
+  final Icon? icon;
+
   /// Set the color of [OutlineSearchBar].
   /// Default value is Color(0xFFFEFEFE)
   final Color? backgroundColor;
@@ -111,6 +122,9 @@ class OutlineSearchBar extends StatefulWidget {
   OutlineSearchBar({
     Key? key,
     this.textEditingController,
+    this.keyboardType = TextInputType.text,
+    this.textInputAction = TextInputAction.search,
+    this.icon,
     this.backgroundColor = const Color(0xFFFEFEFE),
     this.borderColor,
     this.borderWidth = 1.0,
@@ -241,7 +255,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
   Widget _buildTextField() {
     return SimpleTextField(
       controller: _textEditingController,
-      textInputAction: TextInputAction.search,
+      keyboardType: widget.keyboardType,
+      textInputAction: widget.textInputAction,
       style: widget.textStyle,
       maxLength: widget.maxLength,
       cursorColor: widget.cursorColor,
@@ -252,6 +267,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
       ignoreWhiteSpace: widget.ignoreWhiteSpace,
       ignoreSpecialChar: widget.ignoreSpecialChar,
       decoration: SimpleInputDecoration(
+        icon: widget.icon,
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,
         counterText: '',
