@@ -1,5 +1,7 @@
 This package allows you to create an outlined Material design search bar.
 
+[![pub package](https://img.shields.io/pub/v/outline_search_bar.svg)](https://pub.dev/packages/outline_search_bar)
+
 ## Screenshots
 <img src="https://user-images.githubusercontent.com/47127353/105262760-902c9500-5bd3-11eb-9f24-88bbf48d4845.png">
 
@@ -9,7 +11,7 @@ To use this package, add `outline_search_bar` as a [dependency in your pubspec.y
 
 ```yaml
 dependencies:
-  outline_search_bar: ^2.0.3
+  outline_search_bar: ^2.0.4
 ```
 
 ## OutlineSearchBar
