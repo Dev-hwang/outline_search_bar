@@ -136,7 +136,10 @@ class OutlineSearchBar extends StatefulWidget {
   /// Called whenever a keyword is entered.
   final ValueChanged<String>? onKeywordChanged;
 
-  /// When you press the search button, it is called with the entered keyword.
+  /// When the clear button is pressed, it is called with the previous keyword.
+  final ValueChanged<String>? onClearButtonPressed;
+
+  /// When the search button is pressed, it is called with the entered keyword.
   final ValueChanged<String>? onSearchButtonPressed;
 
   OutlineSearchBar({
@@ -174,6 +177,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.ignoreSpecialChar = false,
     this.onTap,
     this.onKeywordChanged,
+    this.onClearButtonPressed,
     this.onSearchButtonPressed
   })  : assert(borderWidth >= 0.0),
         assert(elevation >= 0.0),
@@ -342,8 +346,11 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
           ),
           child: clearIcon
         ),
-        onTap: () {
-          Future.microtask(_textEditingController.clear);
+        onTap: () async {
+          if (widget.onClearButtonPressed != null)
+            widget.onClearButtonPressed!(_textEditingController.text);
+
+          await Future.microtask(_textEditingController.clear);
           if (widget.onKeywordChanged != null)
             widget.onKeywordChanged!('');
         }
