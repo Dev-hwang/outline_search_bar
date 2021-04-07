@@ -50,7 +50,7 @@ class OutlineSearchBar extends StatefulWidget {
   final EdgeInsetsGeometry padding;
 
   /// Set the text padding value of [OutlineSearchBar].
-  /// Default value is EdgeInsets.only(left: 10.0)
+  /// Default value is EdgeInsets.symmetric(horizontal: 5.0)
   final EdgeInsetsGeometry textPadding;
 
   /// Set the elevation of [OutlineSearchBar].
@@ -135,7 +135,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
     this.margin = const EdgeInsets.only(),
     this.padding = const EdgeInsets.symmetric(horizontal: 5.0),
-    this.textPadding = const EdgeInsets.only(left: 10.0),
+    this.textPadding = const EdgeInsets.symmetric(horizontal: 5.0),
     this.elevation = 0.0,
     this.initText,
     this.hintText,
