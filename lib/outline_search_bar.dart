@@ -45,6 +45,10 @@ class OutlineSearchBar extends StatefulWidget {
   /// Default value is EdgeInsets.only()
   final EdgeInsetsGeometry margin;
 
+  /// Set the padding value of [OutlineSearchBar].
+  /// Default value is EdgeInsets.symmetric(horizontal: 5.0)
+  final EdgeInsetsGeometry padding;
+
   /// Set the text padding value of [OutlineSearchBar].
   /// Default value is EdgeInsets.only(left: 10.0)
   final EdgeInsetsGeometry textPadding;
@@ -130,6 +134,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.borderWidth = 1.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
     this.margin = const EdgeInsets.only(),
+    this.padding = const EdgeInsets.symmetric(horizontal: 5.0),
     this.textPadding = const EdgeInsets.only(left: 10.0),
     this.elevation = 0.0,
     this.initText,
@@ -226,7 +231,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         child: Container(
           width: double.infinity,
           height: _kSearchBarDefaultHeight,
-          padding: const EdgeInsets.only(right: 5.0),
+          padding: widget.padding,
           decoration: BoxDecoration(
             color: widget.backgroundColor,
             border: Border.all(
@@ -243,7 +248,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
                 child: _buildClearButton()
               ),
               (widget.hideSearchButton)
-                  ? SizedBox()
+                  ? SizedBox.shrink()
                   : _buildSearchButton()
             ],
           ),
