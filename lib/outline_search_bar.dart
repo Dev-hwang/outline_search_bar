@@ -111,7 +111,7 @@ class OutlineSearchBar extends StatefulWidget {
   final Color? searchButtonIconColor;
 
   /// Set the position of the search button.
-  /// Default value is
+  /// Default value is SearchButtonPosition.trailing.
   final SearchButtonPosition searchButtonPosition;
 
   /// Whether to use autoCorrect option.
@@ -129,6 +129,9 @@ class OutlineSearchBar extends StatefulWidget {
   /// Whether to ignore input of special characters.
   /// Default value is false
   final bool ignoreSpecialChar;
+
+  /// Called when [OutlineSearchBar] is tapped.
+  final GestureTapCallback? onTap;
 
   /// Called whenever a keyword is entered.
   final ValueChanged<String>? onKeywordChanged;
@@ -169,6 +172,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.hideSearchButton = false,
     this.ignoreWhiteSpace = false,
     this.ignoreSpecialChar = false,
+    this.onTap,
     this.onKeywordChanged,
     this.onSearchButtonPressed
   })  : assert(borderWidth >= 0.0),
@@ -306,6 +310,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         focusedBorderColor: Colors.transparent,
         focusedErrorBorderColor: Colors.transparent
       ),
+      onTap: widget.onTap,
       onChanged: (String value) {
         if (widget.onKeywordChanged != null)
           widget.onKeywordChanged!(value);
