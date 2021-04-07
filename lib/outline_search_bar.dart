@@ -3,8 +3,8 @@ library outline_search_bar;
 import 'package:flutter/material.dart';
 import 'package:simple_text_field/simple_text_field.dart';
 
-/// Search Bar default height.
-const double _kSearchBarDefaultHeight = 48.0;
+/// Search Bar minimum height.
+const double _kSearchBarMinimumHeight = 48.0;
 
 /// Action Button(Clear, Search) default size.
 const double _kActionButtonDefaultSize = 36.0;
@@ -27,6 +27,9 @@ class OutlineSearchBar extends StatefulWidget {
   /// Set keyboard action.
   /// Default value is TextInputAction.search
   final TextInputAction textInputAction;
+
+  /// Set the maximum height of [OutlineSearchBar].
+  final double? maxHeight;
 
   /// Set the icon of [OutlineSearchBar].
   final Icon? icon;
@@ -138,6 +141,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.textEditingController,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.search,
+    this.maxHeight,
     this.icon,
     this.backgroundColor,
     this.borderColor,
@@ -251,8 +255,11 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
         borderRadius: widget.borderRadius,
         color: Colors.transparent,
         child: Container(
-          width: double.infinity,
-          height: _kSearchBarDefaultHeight,
+          constraints: BoxConstraints(
+            minWidth: double.infinity,
+            minHeight: _kSearchBarMinimumHeight,
+            maxHeight: widget.maxHeight ?? double.infinity
+          ),
           padding: widget.padding,
           decoration: BoxDecoration(
             color: widget.backgroundColor
