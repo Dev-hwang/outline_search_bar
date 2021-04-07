@@ -26,7 +26,7 @@ class OutlineSearchBar extends StatefulWidget {
   final Icon? icon;
 
   /// Set the color of [OutlineSearchBar].
-  /// Default value is Color(0xFFFEFEFE)
+  /// Default value is Theme.of(context).scaffoldBackgroundColor
   final Color? backgroundColor;
 
   /// Set the border color of [OutlineSearchBar].
@@ -129,7 +129,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.search,
     this.icon,
-    this.backgroundColor = const Color(0xFFFEFEFE),
+    this.backgroundColor,
     this.borderColor,
     this.borderWidth = 1.0,
     this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
@@ -233,7 +233,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
           height: _kSearchBarDefaultHeight,
           padding: widget.padding,
           decoration: BoxDecoration(
-            color: widget.backgroundColor,
+            color: widget.backgroundColor
+                ?? Theme.of(context).scaffoldBackgroundColor,
             border: Border.all(
               color: widget.borderColor ?? _themeColor,
               width: widget.borderWidth
