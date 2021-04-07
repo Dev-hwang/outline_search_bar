@@ -22,12 +22,13 @@ dependencies:
 | `keyboardType` | Set keyboard type. <br> Default value is `TextInputType.text`. |
 | `textInputAction` | Set keyboard action. <br> Default value is `TextInputAction.search`. |
 | `icon` | Set the icon of `OutlineSearchBar`. |
-| `backgroundColor` | Set the color of `OutlineSearchBar`. <br> Default value is `Color(0xFFFEFEFE)`. |
+| `backgroundColor` | Set the color of `OutlineSearchBar`. <br> Default value is `Theme.of(context).scaffoldBackgroundColor`. |
 | `borderColor` | Set the border color of `OutlineSearchBar`. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
 | `borderWidth` | Set the border thickness of `OutlineSearchBar`. <br> Default value is `1.0`. |
 | `borderRadius` | Set the border radius of `OutlineSearchBar`. <br> Default value is `BorderRadius.all(Radius.circular(4.0))`. |
 | `margin` | Set the margin value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.only()`. |
-| `textPadding` | Set the text padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.only(left: 10.0)`. |
+| `padding` | Set the padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.symmetric(horizontal: 5.0)`. |
+| `textPadding` | Set the text padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.symmetric(horizontal: 5.0)`. |
 | `elevation` | Set the elevation of `OutlineSearchBar`. <br> Default value is `0.0`. |
 | `initText` | Set the keyword to be initially entered. If initial text is set in `textEditingController`, this value is ignored. |
 | `hintText` | Set the text to be displayed when the keyword is empty. |

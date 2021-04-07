@@ -9,6 +9,12 @@ const double _kSearchBarDefaultHeight = 48.0;
 /// Action Button(Clear, Search) default size.
 const double _kActionButtonDefaultSize = 36.0;
 
+/// Search Button position.
+enum SearchButtonPosition {
+  leading,
+  trailing
+}
+
 /// A widget that implements an outlined search bar.
 class OutlineSearchBar extends StatefulWidget {
   /// The keyword of [OutlineSearchBar] can be controlled with a [TextEditingController].
@@ -101,6 +107,10 @@ class OutlineSearchBar extends StatefulWidget {
   /// If value is null and theme brightness is light, use primaryColor, if dark, use accentColor.
   final Color? searchButtonIconColor;
 
+  /// Set the position of the search button.
+  /// Default value is
+  final SearchButtonPosition searchButtonPosition;
+
   /// Whether to use autoCorrect option.
   /// Default value is false
   final bool autoCorrect;
@@ -150,6 +160,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.clearButtonIconColor = const Color(0xFFFEFEFE),
     this.searchButtonSplashColor,
     this.searchButtonIconColor,
+    this.searchButtonPosition = SearchButtonPosition.trailing,
     this.autoCorrect = false,
     this.hideSearchButton = false,
     this.ignoreWhiteSpace = false,
@@ -222,6 +233,17 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
     else
       _themeColor = Theme.of(context).accentColor;
 
+    final children = <Widget>[];
+    children.add(Expanded(child: _buildTextField()));
+    children.add(FadeTransition(opacity: _curvedAnimation, child: _buildClearButton()));
+
+    if (widget.hideSearchButton == false) {
+      if (widget.searchButtonPosition == SearchButtonPosition.leading)
+        children.insert(0, _buildSearchButton());
+      else
+        children.insert(children.length, _buildSearchButton());
+    }
+
     return Padding(
       padding: widget.margin,
       child: Material(
@@ -241,18 +263,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
             ),
             borderRadius: widget.borderRadius
           ),
-          child: Row(
-            children: [
-              Expanded(child: _buildTextField()),
-              FadeTransition(
-                opacity: _curvedAnimation,
-                child: _buildClearButton()
-              ),
-              (widget.hideSearchButton)
-                  ? SizedBox.shrink()
-                  : _buildSearchButton()
-            ],
-          ),
+          child: Row(children: children)
         ),
       ),
     );
