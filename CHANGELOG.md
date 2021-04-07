@@ -1,3 +1,12 @@
+## 2.1.0
+
+* Add `padding` options.
+* Add `searchButtonPosition` options.
+* Add `maxHeight` options.
+* Add `onTap` options.
+* Change `backgroundColor` default value.
+* Change `textPadding` default value.
+
 ## 2.0.4
 
 * Upgrade dependencies.

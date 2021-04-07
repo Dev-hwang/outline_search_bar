@@ -11,7 +11,7 @@ To use this package, add `outline_search_bar` as a [dependency in your pubspec.y
 
 ```yaml
 dependencies:
-  outline_search_bar: ^2.0.4
+  outline_search_bar: ^2.1.0
 ```
 
 ## OutlineSearchBar
@@ -21,6 +21,7 @@ dependencies:
 | `textEditingController` | The keyword of `OutlineSearchBar` can be controlled with a `TextEditingController`. |
 | `keyboardType` | Set keyboard type. <br> Default value is `TextInputType.text`. |
 | `textInputAction` | Set keyboard action. <br> Default value is `TextInputAction.search`. |
+| `maxHeight` | Set the maximum height of `OutlineSearchBar`. |
 | `icon` | Set the icon of `OutlineSearchBar`. |
 | `backgroundColor` | Set the color of `OutlineSearchBar`. <br> Default value is `Theme.of(context).scaffoldBackgroundColor`. |
 | `borderColor` | Set the border color of `OutlineSearchBar`. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
@@ -43,9 +44,11 @@ dependencies:
 | `clearButtonIconColor` | Set the icon color inside the clear button. <br> Default value is `Color(0xFFFEFEFE)`. |
 | `searchButtonSplashColor` | Set the splash color that appears when the search button is pressed. |
 | `searchButtonIconColor` | Set the icon color inside the search button. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
+| `searchButtonPosition` | Set the position of the search button. Default value is `SearchButtonPosition.trailing`. |
 | `autoCorrect` | Whether to use autoCorrect option. <br> Default value is `false`. |
 | `hideSearchButton` | Whether to hide the search button. <br> Default value is `false`. |
 | `ignoreWhiteSpace` | Whether to ignore input of white space. <br> Default value is `false`. |
 | `ignoreSpecialChar` | Whether to ignore input of special characters. <br> Default value is `false`. |
+| `onTap` | Called when `OutlineSearchBar` is tapped. |
 | `onKeywordChanged` | Called whenever a keyword is entered. |
 | `onSearchButtonPressed` | When you press the search button, it is called with the entered keyword. |
