@@ -53,3 +53,7 @@ dependencies:
 | `onKeywordChanged` | Called whenever a keyword is entered. |
 | `onClearButtonPressed` | When the clear button is pressed, it is called with the previous keyword. |
 | `onSearchButtonPressed` | When the search button is pressed, it is called with the entered keyword. |
+
+## Support
+
+If you find any bugs or issues while using the plugin, please register an issues on [GitHub](https://github.com/Dev-hwang/outline_search_bar/issues). You can also contact us at <hwj930513@naver.com>.
