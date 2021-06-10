@@ -46,6 +46,7 @@ dependencies:
 | `searchButtonIconColor` | Set the icon color inside the search button. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
 | `searchButtonPosition` | Set the position of the search button. Default value is `SearchButtonPosition.trailing`. |
 | `autoCorrect` | Whether to use autoCorrect option. <br> Default value is `false`. |
+| `enableSuggestions` | Whether to use enableSuggestions option. <br> Default value is `true`. |
 | `hideSearchButton` | Whether to hide the search button. <br> Default value is `false`. |
 | `ignoreWhiteSpace` | Whether to ignore input of white space. <br> Default value is `false`. |
 | `ignoreSpecialChar` | Whether to ignore input of special characters. <br> Default value is `false`. |

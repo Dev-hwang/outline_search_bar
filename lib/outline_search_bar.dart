@@ -121,6 +121,10 @@ class OutlineSearchBar extends StatefulWidget {
   /// Default value is `false`.
   final bool autoCorrect;
 
+  /// Whether to use enableSuggestions option.
+  /// Default value is `true`.
+  final bool enableSuggestions;
+
   /// Whether to hide the search button.
   /// Default value is `false`.
   final bool hideSearchButton;
@@ -175,6 +179,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.searchButtonIconColor,
     this.searchButtonPosition = SearchButtonPosition.trailing,
     this.autoCorrect = false,
+    this.enableSuggestions = true,
     this.hideSearchButton = false,
     this.ignoreWhiteSpace = false,
     this.ignoreSpecialChar = false,
@@ -301,6 +306,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
       cursorHeight: widget.cursorHeight,
       cursorRadius: widget.cursorRadius,
       autocorrect: widget.autoCorrect,
+      enableSuggestions: widget.enableSuggestions,
       ignoreWhiteSpace: widget.ignoreWhiteSpace,
       ignoreSpecialChar: widget.ignoreSpecialChar,
       decoration: SimpleInputDecoration(
