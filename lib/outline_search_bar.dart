@@ -6,8 +6,8 @@ import 'package:simple_text_field/simple_text_field.dart';
 /// Search Bar minimum height.
 const double _kSearchBarMinimumHeight = 48.0;
 
-/// Action Button(Clear, Search) default size.
-const double _kActionButtonDefaultSize = 36.0;
+/// Action Button(Clear, Search) size.
+const Size _kActionButtonSize = const Size(36.0, 36.0);
 
 /// Search Button position.
 enum SearchButtonPosition {
@@ -152,7 +152,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.backgroundColor,
     this.borderColor,
     this.borderWidth = 1.0,
-    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
+    this.borderRadius = const BorderRadius.all(const Radius.circular(4.0)),
     this.margin = const EdgeInsets.only(),
     this.padding = const EdgeInsets.symmetric(horizontal: 5.0),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 5.0),
@@ -247,7 +247,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
 
     final children = <Widget>[];
     children.add(Expanded(child: _buildTextField()));
-    children.add(FadeTransition(opacity: _curvedAnimation, child: _buildClearButton()));
+    children.add(
+        FadeTransition(opacity: _curvedAnimation, child: _buildClearButton()));
 
     if (widget.hideSearchButton == false) {
       if (widget.searchButtonPosition == SearchButtonPosition.leading)
@@ -330,9 +331,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
     final clearIcon = Icon(Icons.clear,
         size: 18.0, color: widget.clearButtonIconColor);
 
-    return SizedBox(
-      width: _kActionButtonDefaultSize,
-      height: _kActionButtonDefaultSize,
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(_kActionButtonSize),
       child: InkWell(
         splashColor: Colors.transparent,
         hoverColor: Colors.transparent,
@@ -351,9 +351,10 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
             widget.onClearButtonPressed!(_textEditingController.text);
 
           await Future.microtask(_textEditingController.clear);
+
           if (widget.onKeywordChanged != null)
             widget.onKeywordChanged!('');
-        }
+        },
       ),
     );
   }
@@ -362,9 +363,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
     final searchIcon = Icon(Icons.search,
         size: 30.0, color: widget.searchButtonIconColor ?? _themeColor);
 
-    return SizedBox(
-      width: _kActionButtonDefaultSize,
-      height: _kActionButtonDefaultSize,
+    return ConstrainedBox(
+      constraints: BoxConstraints.tight(_kActionButtonSize),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -376,7 +376,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
               FocusScope.of(context).requestFocus(FocusNode());
               widget.onSearchButtonPressed!(_textEditingController.text);
             }
-          }
+          },
         ),
       ),
     );
