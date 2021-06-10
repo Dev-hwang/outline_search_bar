@@ -52,6 +52,7 @@ dependencies:
 | `ignoreSpecialChar` | Whether to ignore input of special characters. <br> Default value is `false`. |
 | `onTap` | Called when `OutlineSearchBar` is tapped. |
 | `onKeywordChanged` | Called whenever a keyword is changed. |
+| `onTypingFinished` | Called when keyword typing is finished. |
 | `onClearButtonPressed` | When the clear button is pressed, it is called with the previous keyword. |
 | `onSearchButtonPressed` | When the search button is pressed, it is called with the entered keyword. |
 

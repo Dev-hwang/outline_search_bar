@@ -1,5 +1,6 @@
 library outline_search_bar;
 
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:simple_text_field/simple_text_field.dart';
 
@@ -143,6 +144,9 @@ class OutlineSearchBar extends StatefulWidget {
   /// Called whenever a keyword is changed.
   final ValueChanged<String>? onKeywordChanged;
 
+  /// Called when keyword typing is finished.
+  final ValueChanged<String>? onTypingFinished;
+
   /// When the clear button is pressed, it is called with the previous keyword.
   final ValueChanged<String>? onClearButtonPressed;
 
@@ -185,6 +189,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.ignoreSpecialChar = false,
     this.onTap,
     this.onKeywordChanged,
+    this.onTypingFinished,
     this.onClearButtonPressed,
     this.onSearchButtonPressed
   })  : assert(borderWidth >= 0.0),
@@ -200,9 +205,17 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     with TickerProviderStateMixin {
   late TextEditingController _textEditingController;
   late AnimationController _animationController;
-  late Animation<double> _curvedAnimation;
+  late Animation<double> _fadeAnimation;
+
+  // Whether to show the clear button.
   bool _isShowingClearButton = false;
 
+  // A timer to fire a typing finished event.
+  Timer? _typingFinishedEventTimer;
+
+  // The color that represents the app.
+  // If the color value of the content inside the search bar is null,
+  // this color value is used as the default.
   late Color _themeColor;
 
   void _textEditingControllerListener() {
@@ -216,6 +229,24 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     }
   }
 
+  void _registerTypingFinishedEventTimer() {
+    // Without a callback function, there is no need to start the timer.
+    if (widget.onTypingFinished == null) return;
+
+    if (_typingFinishedEventTimer != null)
+      _unregisterTypingFinishedEventTimer();
+
+    _typingFinishedEventTimer = Timer(const Duration(seconds: 1), () {
+      widget.onTypingFinished!(_textEditingController.text);
+      _unregisterTypingFinishedEventTimer();
+    });
+  }
+
+  void _unregisterTypingFinishedEventTimer() {
+    _typingFinishedEventTimer?.cancel();
+    _typingFinishedEventTimer = null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -225,7 +256,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
       reverseDuration: const Duration(milliseconds: 200)
     );
 
-    _curvedAnimation = CurvedAnimation(
+    _fadeAnimation = CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeIn
     );
@@ -254,42 +285,13 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     else
       _themeColor = Theme.of(context).accentColor;
 
-    final children = <Widget>[];
-    children.add(Expanded(child: _buildTextField()));
-    children.add(
-        FadeTransition(opacity: _curvedAnimation, child: _buildClearButton()));
-
-    if (widget.hideSearchButton == false) {
-      if (widget.searchButtonPosition == SearchButtonPosition.leading)
-        children.insert(0, _buildSearchButton());
-      else
-        children.insert(children.length, _buildSearchButton());
-    }
-
     return Padding(
       padding: widget.margin,
       child: Material(
         elevation: widget.elevation,
         borderRadius: widget.borderRadius,
         color: Colors.transparent,
-        child: Container(
-          constraints: BoxConstraints(
-            minWidth: double.infinity,
-            minHeight: _kSearchBarMinimumHeight,
-            maxHeight: widget.maxHeight ?? double.infinity
-          ),
-          padding: widget.padding,
-          decoration: BoxDecoration(
-            color: widget.backgroundColor
-                ?? Theme.of(context).scaffoldBackgroundColor,
-            border: Border.all(
-              color: widget.borderColor ?? _themeColor,
-              width: widget.borderWidth
-            ),
-            borderRadius: widget.borderRadius
-          ),
-          child: Row(children: children)
-        ),
+        child: _buildSearchBar(),
       ),
     );
   }
@@ -329,6 +331,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
       onChanged: (String value) {
         if (widget.onKeywordChanged != null)
           widget.onKeywordChanged!(value);
+
+        _registerTypingFinishedEventTimer();
       },
       onSubmitted: (String value) {
         if (widget.onSearchButtonPressed != null)
@@ -382,13 +386,46 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
           borderRadius: BorderRadius.circular(searchIcon.size!),
           child: searchIcon,
           onTap: () {
-            if (widget.onSearchButtonPressed != null) {
-              FocusScope.of(context).requestFocus(FocusNode());
+            FocusScope.of(context).requestFocus(FocusNode());
+
+            if (widget.onSearchButtonPressed != null)
               widget.onSearchButtonPressed!(_textEditingController.text);
-            }
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildSearchBar() {
+    final children = <Widget>[];
+    children.add(Expanded(child: _buildTextField()));
+    children.add(
+        FadeTransition(opacity: _fadeAnimation, child: _buildClearButton()));
+
+    if (widget.hideSearchButton == false) {
+      if (widget.searchButtonPosition == SearchButtonPosition.leading)
+        children.insert(0, _buildSearchButton());
+      else
+        children.insert(children.length, _buildSearchButton());
+    }
+
+    return Container(
+      constraints: BoxConstraints(
+        minWidth: double.infinity,
+        minHeight: _kSearchBarMinimumHeight,
+        maxHeight: widget.maxHeight ?? double.infinity
+      ),
+      padding: widget.padding,
+      decoration: BoxDecoration(
+        color: widget.backgroundColor
+            ?? Theme.of(context).scaffoldBackgroundColor,
+        border: Border.all(
+          color: widget.borderColor ?? _themeColor,
+          width: widget.borderWidth
+        ),
+        borderRadius: widget.borderRadius
+      ),
+      child: Row(children: children)
     );
   }
 }
