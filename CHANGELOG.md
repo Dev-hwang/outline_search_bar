@@ -1,3 +1,12 @@
+## 2.2.0
+
+* Upgrade `simple_text_field: ^2.0.2`
+* Add `enableSuggestions`
+* Add `onTypingFinished`
+* Add `debounceDelay`
+* Update documentation
+* Update README.md
+
 ## 2.1.1
 
 * Add `onClearButtonPressed` options.
