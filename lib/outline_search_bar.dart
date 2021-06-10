@@ -118,6 +118,10 @@ class OutlineSearchBar extends StatefulWidget {
   /// Default value is [SearchButtonPosition.trailing].
   final SearchButtonPosition searchButtonPosition;
 
+  /// The delay between when the user stops typing a keyword and receives the onTypingFinished event.
+  /// Default value is `500`.
+  final int debounceDelay;
+
   /// Whether to use autoCorrect option.
   /// Default value is `false`.
   final bool autoCorrect;
@@ -182,6 +186,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.searchButtonSplashColor,
     this.searchButtonIconColor,
     this.searchButtonPosition = SearchButtonPosition.trailing,
+    this.debounceDelay = 500,
     this.autoCorrect = false,
     this.enableSuggestions = true,
     this.hideSearchButton = false,
@@ -195,6 +200,7 @@ class OutlineSearchBar extends StatefulWidget {
   })  : assert(borderWidth >= 0.0),
         assert(elevation >= 0.0),
         assert(cursorWidth >= 0.0),
+        assert(debounceDelay >= 0),
         super(key: key);
 
   @override
@@ -236,7 +242,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     if (_typingFinishedEventTimer != null)
       _unregisterTypingFinishedEventTimer();
 
-    _typingFinishedEventTimer = Timer(const Duration(seconds: 1), () {
+    _typingFinishedEventTimer =
+        Timer(Duration(milliseconds: widget.debounceDelay), () {
       widget.onTypingFinished!(_textEditingController.text);
       _unregisterTypingFinishedEventTimer();
     });

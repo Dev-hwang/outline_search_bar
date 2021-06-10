@@ -45,6 +45,7 @@ dependencies:
 | `searchButtonSplashColor` | Set the splash color that appears when the search button is pressed. |
 | `searchButtonIconColor` | Set the icon color inside the search button. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
 | `searchButtonPosition` | Set the position of the search button. Default value is `SearchButtonPosition.trailing`. |
+| `debounceDelay` | The delay between when the user stops typing a keyword and receives the onTypingFinished event. <br> Default value is `500`. |
 | `autoCorrect` | Whether to use autoCorrect option. <br> Default value is `false`. |
 | `enableSuggestions` | Whether to use enableSuggestions option. <br> Default value is `true`. |
 | `hideSearchButton` | Whether to hide the search button. <br> Default value is `false`. |
