@@ -3,29 +3,32 @@ library outline_search_bar;
 import 'package:flutter/material.dart';
 import 'package:simple_text_field/simple_text_field.dart';
 
-/// Search Bar minimum height.
+/// The minimum height of the search bar.
 const double _kSearchBarMinimumHeight = 48.0;
 
-/// Action Button(Clear, Search) size.
+/// The size of action buttons, such as search and clear buttons.
 const Size _kActionButtonSize = const Size(36.0, 36.0);
 
-/// Search Button position.
+/// An enumeration that defines the location of the search button.
 enum SearchButtonPosition {
+  /// The search button will be located on the left.
   leading,
+
+  /// The search button will be located on the right.
   trailing
 }
 
-/// A widget that implements an outlined search bar.
+/// A widget that implements an outline search bar.
 class OutlineSearchBar extends StatefulWidget {
   /// The keyword of [OutlineSearchBar] can be controlled with a [TextEditingController].
   final TextEditingController? textEditingController;
 
   /// Set keyboard type.
-  /// Default value is TextInputType.text
+  /// Default value is [TextInputType.text].
   final TextInputType keyboardType;
 
   /// Set keyboard action.
-  /// Default value is TextInputAction.search
+  /// Default value is [TextInputAction.search].
   final TextInputAction textInputAction;
 
   /// Set the maximum height of [OutlineSearchBar].
@@ -35,7 +38,7 @@ class OutlineSearchBar extends StatefulWidget {
   final Icon? icon;
 
   /// Set the color of [OutlineSearchBar].
-  /// Default value is Theme.of(context).scaffoldBackgroundColor
+  /// Default value is `Theme.of(context).scaffoldBackgroundColor`.
   final Color? backgroundColor;
 
   /// Set the border color of [OutlineSearchBar].
@@ -43,27 +46,27 @@ class OutlineSearchBar extends StatefulWidget {
   final Color? borderColor;
 
   /// Set the border thickness of [OutlineSearchBar].
-  /// Default value is 1.0
+  /// Default value is `1.0`.
   final double borderWidth;
 
   /// Set the border radius of [OutlineSearchBar].
-  /// Default value is BorderRadius.all(Radius.circular(4.0))
+  /// Default value is `const BorderRadius.all(const Radius.circular(4.0))`.
   final BorderRadius borderRadius;
 
   /// Set the margin value of [OutlineSearchBar].
-  /// Default value is EdgeInsets.only()
+  /// Default value is `const EdgeInsets.only()`.
   final EdgeInsetsGeometry margin;
 
   /// Set the padding value of [OutlineSearchBar].
-  /// Default value is EdgeInsets.symmetric(horizontal: 5.0)
+  /// Default value is `const EdgeInsets.symmetric(horizontal: 5.0)`.
   final EdgeInsetsGeometry padding;
 
   /// Set the text padding value of [OutlineSearchBar].
-  /// Default value is EdgeInsets.symmetric(horizontal: 5.0)
+  /// Default value is `const EdgeInsets.symmetric(horizontal: 5.0)`.
   final EdgeInsetsGeometry textPadding;
 
   /// Set the elevation of [OutlineSearchBar].
-  /// Default value is 0.0
+  /// Default value is `0.0`.
   final double elevation;
 
   /// Set the keyword to be initially entered.
@@ -86,7 +89,7 @@ class OutlineSearchBar extends StatefulWidget {
   final Color? cursorColor;
 
   /// Set the width of cursor.
-  /// Default value is 2.0
+  /// Default value is `2.0`.
   final double cursorWidth;
 
   /// Set the height of cursor.
@@ -96,11 +99,11 @@ class OutlineSearchBar extends StatefulWidget {
   final Radius? cursorRadius;
 
   /// Set the background color of the clear button.
-  /// Default value is Color(0xFFDDDDDD)
+  /// Default value is `const Color(0xFFDDDDDD)`.
   final Color clearButtonColor;
 
   /// Set the icon color inside the clear button.
-  /// Default value is Color(0xFFFEFEFE)
+  /// Default value is `const Color(0xFFFEFEFE)`.
   final Color clearButtonIconColor;
 
   /// Set the splash color that appears when the search button is pressed.
@@ -111,29 +114,29 @@ class OutlineSearchBar extends StatefulWidget {
   final Color? searchButtonIconColor;
 
   /// Set the position of the search button.
-  /// Default value is SearchButtonPosition.trailing.
+  /// Default value is [SearchButtonPosition.trailing].
   final SearchButtonPosition searchButtonPosition;
 
   /// Whether to use autoCorrect option.
-  /// Default value is false
+  /// Default value is `false`.
   final bool autoCorrect;
 
   /// Whether to hide the search button.
-  /// Default value is false
+  /// Default value is `false`.
   final bool hideSearchButton;
 
   /// Whether to ignore input of white space.
-  /// Default value is false
+  /// Default value is `false`.
   final bool ignoreWhiteSpace;
 
   /// Whether to ignore input of special characters.
-  /// Default value is false
+  /// Default value is `false`.
   final bool ignoreSpecialChar;
 
   /// Called when [OutlineSearchBar] is tapped.
   final GestureTapCallback? onTap;
 
-  /// Called whenever a keyword is entered.
+  /// Called whenever a keyword is changed.
   final ValueChanged<String>? onKeywordChanged;
 
   /// When the clear button is pressed, it is called with the previous keyword.
@@ -142,7 +145,7 @@ class OutlineSearchBar extends StatefulWidget {
   /// When the search button is pressed, it is called with the entered keyword.
   final ValueChanged<String>? onSearchButtonPressed;
 
-  OutlineSearchBar({
+  const OutlineSearchBar({
     Key? key,
     this.textEditingController,
     this.keyboardType = TextInputType.text,
@@ -188,8 +191,8 @@ class OutlineSearchBar extends StatefulWidget {
   _OutlineSearchBarState createState() => _OutlineSearchBarState();
 }
 
-/// Class to control the state of [OutlineSearchBar].
-class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProviderStateMixin {
+class _OutlineSearchBarState extends State<OutlineSearchBar>
+    with TickerProviderStateMixin {
   late TextEditingController _textEditingController;
   late AnimationController _animationController;
   late Animation<double> _curvedAnimation;
@@ -201,7 +204,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar> with TickerProvider
     if (_textEditingController.text.isEmpty && _isShowingClearButton) {
       _isShowingClearButton = false;
       _animationController.reverse();
-    } else if (_textEditingController.text.isNotEmpty && !_isShowingClearButton) {
+    } else if (_textEditingController.text.isNotEmpty
+        && !_isShowingClearButton) {
       _isShowingClearButton = true;
       _animationController.forward();
     }

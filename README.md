@@ -26,10 +26,10 @@ dependencies:
 | `backgroundColor` | Set the color of `OutlineSearchBar`. <br> Default value is `Theme.of(context).scaffoldBackgroundColor`. |
 | `borderColor` | Set the border color of `OutlineSearchBar`. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
 | `borderWidth` | Set the border thickness of `OutlineSearchBar`. <br> Default value is `1.0`. |
-| `borderRadius` | Set the border radius of `OutlineSearchBar`. <br> Default value is `BorderRadius.all(Radius.circular(4.0))`. |
-| `margin` | Set the margin value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.only()`. |
-| `padding` | Set the padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.symmetric(horizontal: 5.0)`. |
-| `textPadding` | Set the text padding value of `OutlineSearchBar`. <br> Default value is `EdgeInsets.symmetric(horizontal: 5.0)`. |
+| `borderRadius` | Set the border radius of `OutlineSearchBar`. <br> Default value is `const BorderRadius.all(const Radius.circular(4.0))`. |
+| `margin` | Set the margin value of `OutlineSearchBar`. <br> Default value is `const EdgeInsets.only()`. |
+| `padding` | Set the padding value of `OutlineSearchBar`. <br> Default value is `const EdgeInsets.symmetric(horizontal: 5.0)`. |
+| `textPadding` | Set the text padding value of `OutlineSearchBar`. <br> Default value is `const EdgeInsets.symmetric(horizontal: 5.0)`. |
 | `elevation` | Set the elevation of `OutlineSearchBar`. <br> Default value is `0.0`. |
 | `initText` | Set the keyword to be initially entered. If initial text is set in `textEditingController`, this value is ignored. |
 | `hintText` | Set the text to be displayed when the keyword is empty. |
@@ -40,8 +40,8 @@ dependencies:
 | `cursorWidth` | Set the width of cursor. <br> Default value is `2.0`. |
 | `cursorHeight` | Set the height of cursor. |
 | `cursorRadius` | Set the radius of cursor. |
-| `clearButtonColor` | Set the background color of the clear button. <br> Default value is `Color(0xFFDDDDDD)`. |
-| `clearButtonIconColor` | Set the icon color inside the clear button. <br> Default value is `Color(0xFFFEFEFE)`. |
+| `clearButtonColor` | Set the background color of the clear button. <br> Default value is `const Color(0xFFDDDDDD)`. |
+| `clearButtonIconColor` | Set the icon color inside the clear button. <br> Default value is `const Color(0xFFFEFEFE)`. |
 | `searchButtonSplashColor` | Set the splash color that appears when the search button is pressed. |
 | `searchButtonIconColor` | Set the icon color inside the search button. If value is null and theme brightness is light, use primaryColor, if dark, use accentColor. |
 | `searchButtonPosition` | Set the position of the search button. Default value is `SearchButtonPosition.trailing`. |
@@ -50,7 +50,7 @@ dependencies:
 | `ignoreWhiteSpace` | Whether to ignore input of white space. <br> Default value is `false`. |
 | `ignoreSpecialChar` | Whether to ignore input of special characters. <br> Default value is `false`. |
 | `onTap` | Called when `OutlineSearchBar` is tapped. |
-| `onKeywordChanged` | Called whenever a keyword is entered. |
+| `onKeywordChanged` | Called whenever a keyword is changed. |
 | `onClearButtonPressed` | When the clear button is pressed, it is called with the previous keyword. |
 | `onSearchButtonPressed` | When the search button is pressed, it is called with the entered keyword. |
 
