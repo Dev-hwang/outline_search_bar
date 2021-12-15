@@ -157,6 +157,8 @@ class OutlineSearchBar extends StatefulWidget {
   /// When the search button is pressed, it is called with the entered keyword.
   final ValueChanged<String>? onSearchButtonPressed;
 
+  final FocusNode? focusNode;
+
   const OutlineSearchBar({
     Key? key,
     this.textEditingController,
@@ -196,7 +198,8 @@ class OutlineSearchBar extends StatefulWidget {
     this.onKeywordChanged,
     this.onTypingFinished,
     this.onClearButtonPressed,
-    this.onSearchButtonPressed
+    this.onSearchButtonPressed,
+    this.focusNode,
   })  : assert(borderWidth >= 0.0),
         assert(elevation >= 0.0),
         assert(cursorWidth >= 0.0),
@@ -228,8 +231,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     if (_textEditingController.text.isEmpty && _isShowingClearButton) {
       _isShowingClearButton = false;
       _animationController.reverse();
-    } else if (_textEditingController.text.isNotEmpty
-        && !_isShowingClearButton) {
+    } else if (_textEditingController.text.isNotEmpty &&
+        !_isShowingClearButton) {
       _isShowingClearButton = true;
       _animationController.forward();
     }
@@ -258,24 +261,21 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 250),
-      reverseDuration: const Duration(milliseconds: 200)
-    );
+        vsync: this,
+        duration: const Duration(milliseconds: 250),
+        reverseDuration: const Duration(milliseconds: 200));
 
-    _fadeAnimation = CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeIn
-    );
+    _fadeAnimation =
+        CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
 
     _animationController.reverse();
 
-    _textEditingController = widget.textEditingController
-        ?? TextEditingController();
+    _textEditingController =
+        widget.textEditingController ?? TextEditingController();
     _textEditingController.addListener(_textEditingControllerListener);
 
-    if (_textEditingController.text.isEmpty
-        && (widget.initText != null && widget.initText!.isNotEmpty))
+    if (_textEditingController.text.isEmpty &&
+        (widget.initText != null && widget.initText!.isNotEmpty))
       _textEditingController.text = widget.initText!;
   }
 
@@ -305,6 +305,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
 
   Widget _buildTextField() {
     return SimpleTextField(
+      focusNode: widget.focusNode,
       controller: _textEditingController,
       keyboardType: widget.keyboardType,
       textInputAction: widget.textInputAction,
@@ -319,25 +320,23 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
       ignoreWhiteSpace: widget.ignoreWhiteSpace,
       ignoreSpecialChar: widget.ignoreSpecialChar,
       decoration: SimpleInputDecoration(
-        icon: widget.icon,
-        hintText: widget.hintText,
-        hintStyle: widget.hintStyle,
-        counterText: '',
-        contentPadding: widget.textPadding,
-        // isDense: true,
-        // removeBorder: true,
-        simpleBorder: true,
-        borderWidth: 0.0,
-        focusedBorderWidth: 0.0,
-        borderColor: Colors.transparent,
-        errorBorderColor: Colors.transparent,
-        focusedBorderColor: Colors.transparent,
-        focusedErrorBorderColor: Colors.transparent
-      ),
+          icon: widget.icon,
+          hintText: widget.hintText,
+          hintStyle: widget.hintStyle,
+          counterText: '',
+          contentPadding: widget.textPadding,
+          // isDense: true,
+          // removeBorder: true,
+          simpleBorder: true,
+          borderWidth: 0.0,
+          focusedBorderWidth: 0.0,
+          borderColor: Colors.transparent,
+          errorBorderColor: Colors.transparent,
+          focusedBorderColor: Colors.transparent,
+          focusedErrorBorderColor: Colors.transparent),
       onTap: widget.onTap,
       onChanged: (String value) {
-        if (widget.onKeywordChanged != null)
-          widget.onKeywordChanged!(value);
+        if (widget.onKeywordChanged != null) widget.onKeywordChanged!(value);
 
         _registerTypingFinishedEventTimer();
       },
@@ -349,8 +348,8 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
   }
 
   Widget _buildClearButton() {
-    final clearIcon = Icon(Icons.clear,
-        size: 18.0, color: widget.clearButtonIconColor);
+    final clearIcon =
+        Icon(Icons.clear, size: 18.0, color: widget.clearButtonIconColor);
 
     return ConstrainedBox(
       constraints: BoxConstraints.tight(_kActionButtonSize),
@@ -360,21 +359,18 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
         focusColor: Colors.transparent,
         highlightColor: Colors.transparent,
         child: Container(
-          margin: const EdgeInsets.all(6.0),
-          decoration: BoxDecoration(
-            color: widget.clearButtonColor,
-            borderRadius: BorderRadius.circular(clearIcon.size!)
-          ),
-          child: clearIcon
-        ),
+            margin: const EdgeInsets.all(6.0),
+            decoration: BoxDecoration(
+                color: widget.clearButtonColor,
+                borderRadius: BorderRadius.circular(clearIcon.size!)),
+            child: clearIcon),
         onTap: () async {
           if (widget.onClearButtonPressed != null)
             widget.onClearButtonPressed!(_textEditingController.text);
 
           await Future.microtask(_textEditingController.clear);
 
-          if (widget.onKeywordChanged != null)
-            widget.onKeywordChanged!('');
+          if (widget.onKeywordChanged != null) widget.onKeywordChanged!('');
         },
       ),
     );
@@ -417,22 +413,18 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     }
 
     return Container(
-      constraints: BoxConstraints(
-        minWidth: double.infinity,
-        minHeight: _kSearchBarMinimumHeight,
-        maxHeight: widget.maxHeight ?? double.infinity
-      ),
-      padding: widget.padding,
-      decoration: BoxDecoration(
-        color: widget.backgroundColor
-            ?? Theme.of(context).scaffoldBackgroundColor,
-        border: Border.all(
-          color: widget.borderColor ?? _themeColor,
-          width: widget.borderWidth
-        ),
-        borderRadius: widget.borderRadius
-      ),
-      child: Row(children: children)
-    );
+        constraints: BoxConstraints(
+            minWidth: double.infinity,
+            minHeight: _kSearchBarMinimumHeight,
+            maxHeight: widget.maxHeight ?? double.infinity),
+        padding: widget.padding,
+        decoration: BoxDecoration(
+            color: widget.backgroundColor ??
+                Theme.of(context).scaffoldBackgroundColor,
+            border: Border.all(
+                color: widget.borderColor ?? _themeColor,
+                width: widget.borderWidth),
+            borderRadius: widget.borderRadius),
+        child: Row(children: children));
   }
 }
