@@ -2,6 +2,7 @@ library outline_search_bar;
 
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:outline_search_bar/src/debouncer.dart';
 import 'package:simple_text_field/simple_text_field.dart';
 
 /// The minimum height of the search bar.
@@ -215,12 +216,9 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
   late TextEditingController _textEditingController;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
-
+  late Debouncer _debouncer;
   // Whether to show the clear button.
   bool _isShowingClearButton = false;
-
-  // A timer to fire a typing finished event.
-  Timer? _typingFinishedEventTimer;
 
   // The color that represents the app.
   // If the color value of the content inside the search bar is null,
@@ -238,28 +236,11 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     }
   }
 
-  void _registerTypingFinishedEventTimer() {
-    // Without a callback function, there is no need to start the timer.
-    if (widget.onTypingFinished == null) return;
-
-    if (_typingFinishedEventTimer != null)
-      _unregisterTypingFinishedEventTimer();
-
-    _typingFinishedEventTimer =
-        Timer(Duration(milliseconds: widget.debounceDelay), () {
-      widget.onTypingFinished!(_textEditingController.text);
-      _unregisterTypingFinishedEventTimer();
-    });
-  }
-
-  void _unregisterTypingFinishedEventTimer() {
-    _typingFinishedEventTimer?.cancel();
-    _typingFinishedEventTimer = null;
-  }
-
   @override
   void initState() {
     super.initState();
+    _debouncer = Debouncer(milliseconds: widget.debounceDelay);
+
     _animationController = AnimationController(
         vsync: this,
         duration: const Duration(milliseconds: 250),
@@ -336,9 +317,9 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
           focusedErrorBorderColor: Colors.transparent),
       onTap: widget.onTap,
       onChanged: (String value) {
-        if (widget.onKeywordChanged != null) widget.onKeywordChanged!(value);
+        widget.onKeywordChanged?.call(value);
 
-        _registerTypingFinishedEventTimer();
+        _debouncer.run(() => widget.onTypingFinished?.call(value));
       },
       onSubmitted: (String value) {
         if (widget.onSearchButtonPressed != null)
