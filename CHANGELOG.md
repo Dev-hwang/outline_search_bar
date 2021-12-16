@@ -1,22 +1,27 @@
+## 2.3.0
+
+* Upgrade `simple_text_field: ^2.1.0`
+* Add `focusNode` option.
+
 ## 2.2.0
 
 * Upgrade `simple_text_field: ^2.0.2`
-* Add `enableSuggestions`
-* Add `onTypingFinished`
-* Add `debounceDelay`
+* Add `enableSuggestions` option.
+* Add `onTypingFinished` option.
+* Add `debounceDelay` option.
 * Update documentation
 * Update README.md
 
 ## 2.1.1
 
-* Add `onClearButtonPressed` options.
+* Add `onClearButtonPressed` option.
 
 ## 2.1.0
 
-* Add `padding` options.
-* Add `searchButtonPosition` options.
-* Add `maxHeight` options.
-* Add `onTap` options.
+* Add `padding` option.
+* Add `searchButtonPosition` option.
+* Add `maxHeight` option.
+* Add `onTap` option.
 * Change `backgroundColor` default value.
 * Change `textPadding` default value.
 

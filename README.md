@@ -11,7 +11,7 @@ To use this package, add `outline_search_bar` as a [dependency in your pubspec.y
 
 ```yaml
 dependencies:
-  outline_search_bar: ^2.2.0
+  outline_search_bar: ^2.3.0
 ```
 
 ## OutlineSearchBar
