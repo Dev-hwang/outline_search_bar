@@ -9,7 +9,7 @@ import 'package:simple_text_field/simple_text_field.dart';
 const double _kSearchBarMinimumHeight = 48.0;
 
 /// The size of action buttons, such as search and clear buttons.
-const Size _kActionButtonSize = const Size(36.0, 36.0);
+const Size _kActionButtonSize = Size(36.0, 36.0);
 
 /// An enumeration that defines the location of the search button.
 enum SearchButtonPosition {
@@ -170,7 +170,7 @@ class OutlineSearchBar extends StatefulWidget {
     this.backgroundColor,
     this.borderColor,
     this.borderWidth = 1.0,
-    this.borderRadius = const BorderRadius.all(const Radius.circular(4.0)),
+    this.borderRadius = const BorderRadius.all(Radius.circular(4.0)),
     this.margin = const EdgeInsets.only(),
     this.padding = const EdgeInsets.symmetric(horizontal: 5.0),
     this.textPadding = const EdgeInsets.symmetric(horizontal: 5.0),
@@ -256,8 +256,9 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     _textEditingController.addListener(_textEditingControllerListener);
 
     if (_textEditingController.text.isEmpty &&
-        (widget.initText != null && widget.initText!.isNotEmpty))
+        (widget.initText != null && widget.initText!.isNotEmpty)) {
       _textEditingController.text = widget.initText!;
+    }
   }
 
   @override
@@ -268,10 +269,11 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
 
   @override
   Widget build(BuildContext context) {
-    if (Theme.of(context).brightness == Brightness.light)
+    if (Theme.of(context).brightness == Brightness.light) {
       _themeColor = Theme.of(context).primaryColor;
-    else
+    } else {
       _themeColor = Theme.of(context).accentColor;
+    }
 
     return Padding(
       padding: widget.margin,
@@ -322,8 +324,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
         _debouncer.run(() => widget.onTypingFinished?.call(value));
       },
       onSubmitted: (String value) {
-        if (widget.onSearchButtonPressed != null)
-          widget.onSearchButtonPressed!(value);
+        widget.onSearchButtonPressed?.call(value);
       },
     );
   }
@@ -346,8 +347,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
                 borderRadius: BorderRadius.circular(clearIcon.size!)),
             child: clearIcon),
         onTap: () async {
-          if (widget.onClearButtonPressed != null)
-            widget.onClearButtonPressed!(_textEditingController.text);
+          widget.onClearButtonPressed?.call(_textEditingController.text);
 
           await Future.microtask(_textEditingController.clear);
 
@@ -372,8 +372,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
 
-            if (widget.onSearchButtonPressed != null)
-              widget.onSearchButtonPressed!(_textEditingController.text);
+            widget.onSearchButtonPressed?.call(_textEditingController.text);
           },
         ),
       ),
@@ -387,10 +386,11 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
         FadeTransition(opacity: _fadeAnimation, child: _buildClearButton()));
 
     if (widget.hideSearchButton == false) {
-      if (widget.searchButtonPosition == SearchButtonPosition.leading)
+      if (widget.searchButtonPosition == SearchButtonPosition.leading) {
         children.insert(0, _buildSearchButton());
-      else
+      } else {
         children.insert(children.length, _buildSearchButton());
+      }
     }
 
     return Container(
