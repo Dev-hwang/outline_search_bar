@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  simple_text_field: ^2.0.2
+  simple_text_field: ^2.1.0
 
 dev_dependencies:
   flutter_test:
