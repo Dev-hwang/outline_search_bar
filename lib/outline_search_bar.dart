@@ -17,7 +17,7 @@ enum SearchButtonPosition {
   leading,
 
   /// The search button will be located on the right.
-  trailing
+  trailing,
 }
 
 /// A widget that implements an outline search bar.
@@ -242,9 +242,10 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     _debouncer = Debouncer(milliseconds: widget.debounceDelay);
 
     _animationController = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 250),
-        reverseDuration: const Duration(milliseconds: 200));
+      vsync: this,
+      duration: const Duration(milliseconds: 250),
+      reverseDuration: const Duration(milliseconds: 200),
+    );
 
     _fadeAnimation =
         CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
@@ -303,20 +304,21 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
       ignoreWhiteSpace: widget.ignoreWhiteSpace,
       ignoreSpecialChar: widget.ignoreSpecialChar,
       decoration: SimpleInputDecoration(
-          icon: widget.icon,
-          hintText: widget.hintText,
-          hintStyle: widget.hintStyle,
-          counterText: '',
-          contentPadding: widget.textPadding,
-          // isDense: true,
-          // removeBorder: true,
-          simpleBorder: true,
-          borderWidth: 0.0,
-          focusedBorderWidth: 0.0,
-          borderColor: Colors.transparent,
-          errorBorderColor: Colors.transparent,
-          focusedBorderColor: Colors.transparent,
-          focusedErrorBorderColor: Colors.transparent),
+        icon: widget.icon,
+        hintText: widget.hintText,
+        hintStyle: widget.hintStyle,
+        counterText: '',
+        contentPadding: widget.textPadding,
+        // isDense: true,
+        // removeBorder: true,
+        simpleBorder: true,
+        borderWidth: 0.0,
+        focusedBorderWidth: 0.0,
+        borderColor: Colors.transparent,
+        errorBorderColor: Colors.transparent,
+        focusedBorderColor: Colors.transparent,
+        focusedErrorBorderColor: Colors.transparent,
+      ),
       onTap: widget.onTap,
       onChanged: (String value) {
         widget.onKeywordChanged?.call(value);
@@ -341,11 +343,13 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
         focusColor: Colors.transparent,
         highlightColor: Colors.transparent,
         child: Container(
-            margin: const EdgeInsets.all(6.0),
-            decoration: BoxDecoration(
-                color: widget.clearButtonColor,
-                borderRadius: BorderRadius.circular(clearIcon.size!)),
-            child: clearIcon),
+          margin: const EdgeInsets.all(6.0),
+          decoration: BoxDecoration(
+            color: widget.clearButtonColor,
+            borderRadius: BorderRadius.circular(clearIcon.size!),
+          ),
+          child: clearIcon,
+        ),
         onTap: () async {
           widget.onClearButtonPressed?.call(_textEditingController.text);
 
@@ -394,18 +398,22 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     }
 
     return Container(
-        constraints: BoxConstraints(
-            minWidth: double.infinity,
-            minHeight: _kSearchBarMinimumHeight,
-            maxHeight: widget.maxHeight ?? double.infinity),
-        padding: widget.padding,
-        decoration: BoxDecoration(
-            color: widget.backgroundColor ??
-                Theme.of(context).scaffoldBackgroundColor,
-            border: Border.all(
-                color: widget.borderColor ?? _themeColor,
-                width: widget.borderWidth),
-            borderRadius: widget.borderRadius),
-        child: Row(children: children));
+      constraints: BoxConstraints(
+        minWidth: double.infinity,
+        minHeight: _kSearchBarMinimumHeight,
+        maxHeight: widget.maxHeight ?? double.infinity,
+      ),
+      padding: widget.padding,
+      decoration: BoxDecoration(
+        color:
+            widget.backgroundColor ?? Theme.of(context).scaffoldBackgroundColor,
+        border: Border.all(
+          color: widget.borderColor ?? _themeColor,
+          width: widget.borderWidth,
+        ),
+        borderRadius: widget.borderRadius,
+      ),
+      child: Row(children: children),
+    );
   }
 }
