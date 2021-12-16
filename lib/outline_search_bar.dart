@@ -273,7 +273,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     if (Theme.of(context).brightness == Brightness.light) {
       _themeColor = Theme.of(context).primaryColor;
     } else {
-      _themeColor = Theme.of(context).accentColor;
+      _themeColor = Theme.of(context).colorScheme.secondary;
     }
 
     return Padding(
