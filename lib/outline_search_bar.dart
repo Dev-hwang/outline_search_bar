@@ -267,7 +267,7 @@ class _OutlineSearchBarState extends State<OutlineSearchBar>
     _animationController.stop();
     _animationController.dispose();
     _textEditingController.removeListener(_textEditingControllerListener);
-    _textEditingController.dispose();
+    // _textEditingController.dispose();
     super.dispose();
   }
 
